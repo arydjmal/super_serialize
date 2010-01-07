@@ -1,6 +1,6 @@
 = super_serialize plugin
 
-Rails plugin that makes easier to use the ActiveRecord#serialize method.
+Rails plugin that gives you extra power when using the ActiveRecord#serialize method.
 
 It creates setters and getters for the fake columns, and cast values to strings unless the value is an integer, boolean, or string; you can override the accepted classes with the :accepts option.
 
