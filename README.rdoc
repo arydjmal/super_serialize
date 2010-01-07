@@ -19,8 +19,8 @@ In your model:
   super_serialize :male, :occupation, :location
 
   # Gives you setters and getters to do the following
-  user = User.new(:username => 'ary', :gender => true, :location => 'NY')
-  user.occupation = 'proffesional fútbol player'
+  user = User.new(:username => 'ary', :male => true, :location => 'NY')
+  user.occupation = 'professional fútbol player'
   user.username == 'ary'
   
   # In order to change the column name do...
