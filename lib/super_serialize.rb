@@ -16,7 +16,11 @@ module SuperSerialize
         def #{column}
           (value = read_attribute(:#{column})) && value.is_a?(Hash) ? value : self.#{column} = {}
         end
-      }
+        
+        def stringify_if_necessary(value)
+          #{accepted_classes.inspect}.include?(value.class) ? value : value.to_s
+        end
+      }, __FILE__, __LINE__
       
       fake_columns.each do |fake_column|        
         class_eval %{
@@ -25,8 +29,7 @@ module SuperSerialize
           end
 
           def #{fake_column}=(value)
-            value = value.to_s unless #{accepted_classes.inspect}.include?(value.class)
-            self.#{column}[:#{fake_column}] = value
+            self.#{column}[:#{fake_column}] = stringify_if_necessary(value)
           end
         }, __FILE__, __LINE__
       end
