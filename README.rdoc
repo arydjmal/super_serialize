@@ -6,8 +6,9 @@ It creates setters and getters for the fake columns, and cast values to the appr
 
 Tested using shoulda.
 
-Some ideas (support.rb) were taken from mongomapper.
-
+NOTE: 
+1) There are a lot of similar plugins out there. I wrote my own because it is the only one that supports classes + defaults + tested. Some ideas (like support.rb) were taken from mongomapper.
+2) For now the only accepted classes are Boolean, String, and Integer. Why? ...it's what I need...
 
 == Usage
 
