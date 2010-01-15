@@ -5,9 +5,13 @@ class Boolean
   }
 
   def self.to_super_serialize(value)
-    v = BOOLEAN_MAPPING[value]
-    v = value.to_s.downcase == 'true' if v.nil?
-    v
+    if value.nil?
+      nil
+    else
+      v = BOOLEAN_MAPPING[value]
+      v = value.to_s.downcase == 'true' if v.nil?
+      v
+    end
   end
 end
 
