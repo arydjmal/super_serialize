@@ -27,7 +27,7 @@ In your model:
 
   # Integer
   user.age = 'ary' # => 0
-  user.age = 10.2  # => 10
+  user.age = 10.8  # => 10
   user.age = nil   # => nil
   
   # String
