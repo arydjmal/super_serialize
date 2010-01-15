@@ -1,12 +1,12 @@
 = super_serialize plugin
 
-Rails plugin that gives you extra power when using the ActiveRecord#serialize method.
+Rails plugin that gives extra power to the ActiveRecord#serialize method.
 
-It creates setters and getters for the fake columns, and cast values to strings unless the value is an integer, boolean, or string; you can override the accepted classes with the :accepts option.
-
-The default name of the serialized column is "serialized_data"; you can override it with the :column option.
+It creates setters and getters for the fake columns, and cast values to the appropriate class.
 
 Tested using shoulda.
+
+Some ideas (support.rb) were taken from mongomapper.
 
 
 == Usage
@@ -14,21 +14,33 @@ Tested using shoulda.
 In your model:
 
   # Given the following model
-  # User(id: integer, created_at: datetime, username: string, serialized_data: string)
+  # User(id: integer, username: string, serialized_data: text, created_at: datetime)
 
-  super_serialize :male, :occupation, :location
+  super_serialize :male,       Boolean, :default => true
+  super_serialize :occupation, String
+  super_serialize :age,        Integer
 
   # Gives you setters and getters to do the following
-  user = User.new(:username => 'ary', :male => true, :location => 'NY')
+  user = User.new(:username => 'ary', :male => true, :age => '25')
   user.occupation = 'professional fútbol player'
-  user.username == 'ary'
-  
-  # In order to change the column name do...
-  super_serialize :male, :occupation, :location, :column => :some_other_name
+  user.username == 'ary' # => true
 
-  # In order to change the accepted classes do...
-  super_serialize :gender, :occupation, :location, :accepts => String
-  super_serialize :gender, :occupation, :location, :accepts => [String, Fixnum]
+  # Integer
+  user.age = 'ary' # => 0
+  user.age = 10.2  # => 10
+  user.age = nil   # => nil
+  
+  # String
+  user.occupation = true # => 'true'
+  user.occupation = 10.2 # => '10.2'
+  user.occupation = nil  # => nil
+
+  # Boolean
+  user.male = 'true' # => true
+  user.male = 't'    # => true
+  user.male = 1      # => true
+  # Also gives you a #{name}? method
+  user.male? # => true
 
 
 == Dependencies

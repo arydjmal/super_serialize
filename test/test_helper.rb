@@ -12,7 +12,14 @@ Object.send :include, SuperSerialize
 
 class User
   attr_accessor :id, :email, :serialized_data
-  def self.serialize(*args) end
-  def initialize(params={}) params.each { |key, value| self.send("#{key}=", value) }; self; end
+  def self.serialize(*args) @serilarized = true; end
+  def self.serialized_attributes() @serilarized ? { 'serialized_data' => Hash } : {}; end  
+  # def self.after_initialize_callbacks() @after_initialize_callbacks ||= []; end
+  # def self.after_initialize(name) after_initialize_callbacks << name; end
   def read_attribute(attribute) instance_variable_get("@#{attribute}"); end
+  def initialize(params={})
+    params.each { |key, value| self.send("#{key}=", value); }
+    # self.class.after_initialize_callbacks.each { |callback| self.send(callback) }
+    self
+  end
 end
