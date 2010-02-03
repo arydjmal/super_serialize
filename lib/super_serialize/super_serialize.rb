@@ -5,7 +5,7 @@ module SuperSerialize
 
   module ClassMethods
     COLUMN = 'serialized_data'
-    CLASSES = [Boolean, Integer, String]
+    CLASSES = [Boolean, Integer, Float, String]
 
     def super_serialize(name, klass, options={})
       raise(ArgumentError, "super_serialize only supports #{CLASSES.to_sentence}") if !CLASSES.include?(klass)

@@ -26,3 +26,9 @@ class Integer
     value.nil? ? nil : value.to_i
   end
 end
+
+class Float
+  def self.to_super_serialize(value)
+    value.nil? ? nil : value.to_f
+  end
+end
